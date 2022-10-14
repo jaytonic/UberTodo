@@ -1,1 +1,49 @@
-<p>login works!</p>
+<div class="flex align-items-center justify-content-center h-full">
+    <p-card class="w-12 md:w-6 lg:w-4 m-2" header="Login">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="flex flex-column p-2">
+          <div class="p-float-label w-full">
+            <input
+              type="text"
+              pInputText
+              formControlName="email"
+              class="w-full"
+            />
+            <label>Email</label>
+          </div>
+  
+          <span class="p-float-label w-full mt-4">
+            <input
+              type="password"
+              pPassword
+              formControlName="password"
+              class="w-full"
+              [feedback]="false"
+            />
+            <label for="password">Password</label>
+          </span>
+          <div *ngIf="serverError" class="w-auto text-red-500  mt-3">
+            {{ serverError }}
+          </div>
+  
+          <div class="w-auto my-5 justify-content-center flex">
+            <button
+              pButton
+              class="m-1 w-5 p-button-text"
+              routerLink="/auth/register"
+              type="button"
+              label="Register instead"
+            ></button>
+            <button
+              pButton
+              class="m-1 w-5 text-center"
+              type="submit"
+              [disabled]="!form.valid"
+              label="Login"
+            ></button>
+          </div>
+        </div>
+      </form>
+    </p-card>
+  </div>
+  

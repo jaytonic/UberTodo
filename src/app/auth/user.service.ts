@@ -37,6 +37,25 @@ export class UserService {
       throw new Error('Email already in use');
     }
   }
+
+  async login(email: string, password: string): Promise<User | string> {
+    const url = environment.apiUrl + '/user/login';
+    try {
+      const loggedInUser = await lastValueFrom(
+        this.http.post<AuthResponse>(url, {
+          email,
+          password,
+        })
+      );
+
+      this.currentUser$.next(loggedInUser.user);
+      this.token$.next(loggedInUser.token);
+      localStorage.setItem('token', loggedInUser.token);
+      return loggedInUser.user;
+    } catch (e) {
+      throw new Error('Invalid credentials');
+    }
+  }
   private async restoreToken() {
     const token = localStorage.getItem('token');
     if (token) {
