@@ -6,12 +6,13 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [],
   imports: SharedModule.MODULE_LIST,
   exports: SharedModule.MODULE_LIST,
-  
 })
 export class SharedModule {
   static readonly MODULE_LIST = [
@@ -22,5 +23,7 @@ export class SharedModule {
     ButtonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ProgressSpinnerModule,
+    DialogModule,
   ];
 }

@@ -1,6 +1,8 @@
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +10,7 @@ import { AuthenticatedLayoutComponent } from './layout/authenticated-layout/auth
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { DrawerComponent } from './layout/drawer/drawer.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -15,14 +18,16 @@ import { DrawerComponent } from './layout/drawer/drawer.component';
     AuthenticatedLayoutComponent,
     HeaderComponent,
     FooterComponent,
-    DrawerComponent
+    DrawerComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    UserModule
+    UserModule,
+    CoreModule,
+    ComponentsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

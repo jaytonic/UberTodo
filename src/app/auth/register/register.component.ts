@@ -1,3 +1,4 @@
+import { UiService } from './../../core/ui.service';
 import { UserService } from './../user.service';
 import { PasswordModule } from 'primeng/password';
 import { Component, OnInit } from '@angular/core';
@@ -31,7 +32,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private uiService: UiService
   ) {}
 
   ngOnInit(): void {}
@@ -40,6 +42,7 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
       this.serverError = null;
       try {
+        this.uiService.startBusyIndicator('Registering in...');
         const currentUser = await this.userService.register(
           this.form.value.email,
           this.form.value.name,
@@ -48,6 +51,8 @@ export class RegisterComponent implements OnInit {
         this.router.navigateByUrl('/');
       } catch (error: any) {
         this.serverError = error.message;
+      } finally {
+        this.uiService.stopBusyIndicator();
       }
     }
   }

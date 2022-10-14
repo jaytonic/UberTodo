@@ -1,0 +1,14 @@
+<p-dialog
+  [visible]="isBusy"
+  [closable]="false"
+  [draggable]="false"
+  [resizable]="false"
+  [modal]="true"
+  [blockScroll]="true"
+  [closeOnEscape]="true"
+>
+  <p-progressSpinner></p-progressSpinner>
+  <div>
+    {{ busyMessage }}
+  </div></p-dialog
+>

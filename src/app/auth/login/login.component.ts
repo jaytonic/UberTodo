@@ -29,18 +29,18 @@ export class LoginComponent implements OnInit {
 
   async onSubmit() {
     if (this.form.valid) {
-      //this.uiService.startBusyIndicator('Logging in...');
+      this.uiService.startBusyIndicator('Logging in...');
       try {
         await this.userService.login(
           this.form.value.email!,
           this.form.value.password!
         );
 
-        this.router.navigateByUrl('/');
+        await this.router.navigateByUrl('/');
       } catch (e: any) {
         this.serverError = e.message;
       } finally {
-       // this.uiService.stopBusyIndicator();
+        this.uiService.stopBusyIndicator();
       }
     }
   }
