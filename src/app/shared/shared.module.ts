@@ -15,6 +15,9 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TooltipModule } from 'primeng/tooltip';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { AvatarModule } from 'primeng/avatar';
+import { MenuModule } from 'primeng/menu';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [],
@@ -39,5 +42,8 @@ export class SharedModule {
     ToggleButtonModule,
     TooltipModule,
     AutoFocusModule,
+    AvatarModule,
+    MenuModule,
+    FileUploadModule,
   ];
 }

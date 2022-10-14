@@ -14,6 +14,7 @@ export class UserService {
     null
   );
   token$ = new BehaviorSubject<string | null>(null);
+  currentUserAvatar$ = new BehaviorSubject<string | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {
     this.token$.next(localStorage.getItem('token'));
@@ -31,9 +32,7 @@ export class UserService {
           age: 42,
         })
       );
-      this.currentUser$.next(createdUser.user);
-      this.token$.next(createdUser.token);
-      localStorage.setItem('token', createdUser.token);
+      this.updateCurrentUser(createdUser.user, createdUser.token);
       return createdUser.user;
     } catch (e) {
       throw new Error('Email already in use');
@@ -49,10 +48,7 @@ export class UserService {
           password,
         })
       );
-
-      this.currentUser$.next(loggedInUser.user);
-      this.token$.next(loggedInUser.token);
-      localStorage.setItem('token', loggedInUser.token);
+      this.updateCurrentUser(loggedInUser.user, loggedInUser.token);
       return loggedInUser.user;
     } catch (e) {
       throw new Error('Invalid credentials');
@@ -64,6 +60,12 @@ export class UserService {
         this.http.get<User>(environment.apiUrl + '/user/me', {
           headers: { Authorization: 'Bearer ' + this.token$.value },
         })
+      );
+      this.currentUserAvatar$.next(
+        'https://api-nodejs-todolist.herokuapp.com/user/' +
+          user._id +
+          '/avatar?date=' +
+          new Date().getTime()
       );
       this.currentUser$.next(user);
     }
@@ -87,5 +89,26 @@ export class UserService {
       localStorage.removeItem('token');
       this.router.navigateByUrl('/auth');
     }
+  }
+
+  async refreshAvatar() {
+    this.currentUserAvatar$.next(
+      'https://api-nodejs-todolist.herokuapp.com/user/' +
+        this.currentUser$.value!._id +
+        '/avatar?date=' +
+        new Date().getTime()
+    );
+  }
+
+  async updateCurrentUser(user: User, token: string) {
+    this.currentUser$.next(user);
+    this.token$.next(token);
+    this.currentUserAvatar$.next(
+      'https://api-nodejs-todolist.herokuapp.com/user/' +
+        user._id +
+        '/avatar?date=' +
+        new Date().getTime()
+    );
+    localStorage.setItem('token', token);
   }
 }

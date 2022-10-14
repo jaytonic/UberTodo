@@ -1,1 +1,29 @@
-<p>profile works!</p>
+<div class="flex justify-content-center">
+  <div class="flex flex-column w-full md:w-10 xl:w-6">
+    <p-toast position="top-right"></p-toast>
+    <p-card class="m-3">
+      <h2>Your avatar</h2>
+      <div class="flex flex-column align-items-center">
+        <p-avatar
+          class="m-2"
+          shape="circle"
+          [image]="(userService.currentUserAvatar$ | async) ?? ''"
+          size="xlarge"
+        ></p-avatar>
+        <p-fileUpload
+          mode="basic"
+          [url]="remoteUrl"
+          method="post"
+          accept="image/*"
+          [auto]="true"
+          [headers]="headers"
+          name="avatar"
+          (onProgress)="onProgress()"
+          (onError)="onError()"
+          (onUpload)="onUpload()"
+          chooseLabel="Change your avatar"
+        ></p-fileUpload>
+      </div>
+    </p-card>
+  </div>
+</div>

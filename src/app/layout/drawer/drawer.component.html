@@ -1,28 +1,38 @@
 <div>
-    <h1 class="m-3">VS Todo</h1>
-    <ul class="m-3" class="list-none p-0">
-      <li *ngFor="let menuItem of menuService.items">
-        <button
-          pButton
-          [routerLink]="menuItem.route"
-          (click)="uiService.toggleMenu()"
-          fillMode="flat"
-          class="no-underline m-1 w-full p-button-text"
-          [icon]="'pi pi-' + menuItem.icon"
-          [label]="menuItem.text"
-        >
-        </button>
-      </li>
-      <li>
-        <button
-          pButton
-          (click)="userService.logout(); uiService.toggleMenu()"
-          fillMode="flat"
-          class="no-underline m-1 w-full p-button-text"
-          icon="pi pi-lock"
-          label="Logout"
-        ></button>
-      </li>
-    </ul>
+  <div
+    class="flex justify-content-center"
+    *ngIf="userService.currentUser$ | async as user"
+  >
+    <div class="flex flex-column align-items-center">
+      <p-avatar
+        shape="circle"
+        size="xlarge"
+        [image]="(userService.currentUserAvatar$ | async)??''"
+      ></p-avatar>
+      <h3>{{ user.name }}</h3>
+    </div>
   </div>
-  
+  <ul class="m-3" class="list-none p-0 mt-4">
+    <li *ngFor="let menuItem of menuService.items">
+      <button
+        pButton
+        [routerLink]="menuItem.route"
+        (click)="uiService.toggleMenu()"
+        fillMode="flat"
+        class="no-underline m-1 w-full p-button-text"
+        [icon]="'pi pi-' + menuItem.icon"
+        [label]="menuItem.text"
+      ></button>
+    </li>
+    <li>
+      <button
+        pButton
+        (click)="userService.logout(); uiService.toggleMenu()"
+        fillMode="flat"
+        class="no-underline m-1 w-full p-button-text"
+        icon="pi pi-lock"
+        label="Logout"
+      ></button>
+    </li>
+  </ul>
+</div>
