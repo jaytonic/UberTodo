@@ -1,24 +1,20 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-import { TodosRoutingModule } from './todos-routing.module';
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 import { TodoAddComponent } from './todo-add/todo-add.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodosRoutingModule } from './todos-routing.module';
 import { TodosComponent } from './todos/todos.component';
-import { SharedModule } from '../shared/shared.module';
-
 
 @NgModule({
   declarations: [
     TodoListComponent,
     TodoAddComponent,
     TodoItemComponent,
-    TodosComponent
+    TodosComponent,
   ],
-  imports: [
-    SharedModule,
-    TodosRoutingModule
-  ]
+  imports: [SharedModule, TodosRoutingModule, FormsModule],
 })
-export class TodosModule { }
+export class TodosModule {}

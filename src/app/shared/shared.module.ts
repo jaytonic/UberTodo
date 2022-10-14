@@ -10,6 +10,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
 import { SidebarModule } from 'primeng/sidebar';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [],
@@ -29,5 +30,6 @@ export class SharedModule {
     DialogModule,
     ToolbarModule,
     SidebarModule,
+    ToastModule,
   ];
 }

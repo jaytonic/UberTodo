@@ -1,1 +1,23 @@
-<p>todo-add works!</p>
+<div id="container" class="flex align-items-center justify-content-center">
+    <p-card class="m-2 w-full p-1">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="p-inputgroup">
+          <input
+            type="text"
+            pInputText
+            placeholder="New task"
+            formControlName="description"
+          />
+          <button
+            type="submit"
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            [disabled]="!form.valid"
+            styleClass="p-button-warn"
+          ></button>
+        </div>
+      </form>
+    </p-card>
+  </div>
+  
