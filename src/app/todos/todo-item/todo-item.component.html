@@ -1,1 +1,13 @@
-<p>todo-item works!</p>
+<div>
+    <p-checkbox
+      [ngModel]="todo?.completed"
+      [trueValue]="true"
+      [falseValue]="false"
+      [binary]="true"
+      (onChange)="toggle()"
+    ></p-checkbox
+    ><span class="m-2" [class.line-through]="todo?.completed === true">{{
+      todo?.description
+    }}</span>
+  </div>
+  

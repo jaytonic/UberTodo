@@ -44,4 +44,18 @@ export class TodosComponent implements OnInit {
       life: 800,
     });
   }
+  async clearCompletedTodos() {
+    this.uiService.startBusyIndicator('Clearing completed todos....');
+    try {
+      await this.todosService.clearCompletedTodos();
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Todo cleared',
+        closable: false,
+        life: 800,
+      });
+    } finally {
+      this.uiService.stopBusyIndicator();
+    }
+  }
 }

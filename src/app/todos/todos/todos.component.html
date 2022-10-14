@@ -2,10 +2,11 @@
     <div class="flex flex-column w-full md:w-10 xl:w-6">
       <p-toast position="top-right"></p-toast>
       <app-todo-add (newTodoEvent)="onNewEvent($event)"></app-todo-add>
-      <!-- <app-todo-list
+      <app-todo-list
         [todos]="todosService.todos$ | async"
         (toggleTodoEvent)="toggle($event)"
-      ></app-todo-list> -->
+        (clearCompletedTodos)="clearCompletedTodos()"
+      ></app-todo-list>
     </div>
   </div>
   

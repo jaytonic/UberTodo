@@ -1,1 +1,54 @@
-<p>todo-list works!</p>
+<div id="container" class="flex align-items-center justify-content-center">
+  <p-card class="m-2 w-full p-1">
+    <div class="flex w-full">
+      <div class="flex justify-content-center flex-grow-1">
+        <p-toggleButton
+          size="small"
+          [(ngModel)]="displayIncomplete"
+          (onChange)="updateFilter()"
+          class="m-1"
+          onLabel="To do"
+          offLabel="To do"
+          onIcon="pi pi-check"
+          offIcon="pi pi-times"
+        >
+        </p-toggleButton>
+        <p-toggleButton
+          size="small"
+          [(ngModel)]="displayComplete"
+          (onChange)="updateFilter()"
+          class="m-1"
+          onLabel="Completed"
+          offLabel="Completed"
+          onIcon="pi pi-check"
+          offIcon="pi pi-times"
+        >
+        </p-toggleButton>
+      </div>
+      <button
+        type="button"
+        pButton
+        size="small"
+        class="m-1 flex-grow-0 p-button-rounded p-button-outlined"
+        icon="pi pi-trash"
+        pTooltip="Clear completed items"
+        tooltipPosition="top"
+        (click)="clearCompleted()"
+      ></button>
+    </div>
+    <div *ngIf="todos && filteredTodos.length > 0; else noTodos">
+      <app-todo-item
+        *ngFor="let todo of filteredTodos"
+        [todo]="todo"
+        (toggleTodo)="toggleTodo(todo)"
+        [@inOutAnimation]
+        class="m-1"
+      ></app-todo-item>
+    </div>
+    <ng-template #noTodos
+      ><div class="flex align-items-center justify-content-center">
+        Nothing to do, add your first one!
+      </div>
+    </ng-template>
+  </p-card>
+</div>

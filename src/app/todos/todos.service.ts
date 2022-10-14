@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { UserService } from '../auth/user.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TodosService {
   todos$ = new BehaviorSubject<Todo[]>([]);
@@ -60,5 +60,26 @@ export class TodosService {
         this.todos$.value.map((t) => (t._id === todo._id ? response.data : t))
       );
     }
+  }
+
+  async clearCompletedTodos() {
+    const completedTodos = this.todos$.value.filter((t) => t.completed);
+    for (let todo of completedTodos) {
+      const response = await lastValueFrom(
+        this.http.delete<AddTodoAnswer>(
+          environment.apiUrl + '/task/' + todo._id,
+          {
+            headers: {
+              Authorization: 'Bearer ' + this.userService.token$.value,
+            },
+          }
+        )
+      );
+    }
+    this.todos$.next(
+      this.todos$.value.filter(
+        (t) => !completedTodos.some((ct) => ct._id == t._id)
+      )
+    );
   }
 }
