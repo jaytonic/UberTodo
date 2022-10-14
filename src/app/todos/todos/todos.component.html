@@ -1,8 +1,8 @@
-<div class="flex justify-content-center">
-  <div class="flex flex-column w-full md:w-10 xl:w-6">
+<div class="flex justify-content-center h-full">
+  <div class="flex flex-column w-full md:w-10 xl:w-6 h-full">
     <p-toast position="top-right"></p-toast>
     <app-todo-add (newTodoEvent)="onNewEvent($event)"></app-todo-add>
-    <app-todo-list
+    <app-todo-list class="flex-grow-1"
       [todos]="todosService.todos$ | async"
       (toggleTodoEvent)="toggle($event)"
       (clearCompletedTodos)="clearCompletedTodos()"

@@ -20,6 +20,7 @@ import { MenuModule } from 'primeng/menu';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [],
@@ -49,5 +50,6 @@ export class SharedModule {
     FileUploadModule,
     DividerModule,
     ConfirmDialogModule,
+    PaginatorModule,
   ];
 }

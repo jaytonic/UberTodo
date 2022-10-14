@@ -30,9 +30,12 @@ export class TodoListComponent {
   clearCompletedTodos = new EventEmitter();
 
   filteredTodos: Todo[] = [];
+  pagedFilteredTodos: Todo[] = [];
 
   displayIncomplete = true;
   displayComplete = false;
+  pageSize = 15;
+  firstRowToDisplay = 0;
 
   ngOnChanges(changes: any): void {
     this.updateFilter();
@@ -48,10 +51,23 @@ export class TodoListComponent {
           (todo.completed && this.displayComplete) ||
           (!todo.completed && this.displayIncomplete)
       );
+      if (this.firstRowToDisplay >= this.filteredTodos.length) {
+        this.firstRowToDisplay = 0;
+      }
+      this.pagedFilteredTodos = this.filteredTodos.slice(
+        this.firstRowToDisplay,
+        this.firstRowToDisplay + this.pageSize
+      );
     } else {
       this.filteredTodos = [];
+      this.pagedFilteredTodos = this.filteredTodos;
     }
   }
+  onPageChange(event: any) {
+    this.firstRowToDisplay = event.first;
+    this.updateFilter();
+  }
+
   clearCompleted() {
     this.clearCompletedTodos.emit();
   }

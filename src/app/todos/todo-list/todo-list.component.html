@@ -1,5 +1,5 @@
-<div id="container" class="flex align-items-center justify-content-center">
-  <p-card class="m-2 w-full p-1">
+<div id="container" class="flex align-items-center justify-content-center h-full">
+  <p-card class="m-2 w-full p-1 h-full" >
     <div class="flex w-full">
       <div class="flex justify-content-center flex-grow-1">
         <p-toggleButton
@@ -36,14 +36,23 @@
         (click)="clearCompleted()"
       ></button>
     </div>
-    <div *ngIf="todos && filteredTodos.length > 0; else noTodos">
+    <div
+      *ngIf="todos && filteredTodos.length > 0; else noTodos"
+    >
       <app-todo-item
-        *ngFor="let todo of filteredTodos"
+        *ngFor="let todo of pagedFilteredTodos"
         [todo]="todo"
         (toggleTodo)="toggleTodo(todo)"
         [@inOutAnimation]
         class="m-1"
       ></app-todo-item>
+      <p-paginator
+        [rows]="pageSize"
+        [totalRecords]="filteredTodos.length"
+        [first]="firstRowToDisplay"
+        (onPageChange)="onPageChange($event)"
+        [alwaysShow]="false"
+      ></p-paginator>
     </div>
     <ng-template #noTodos
       ><div class="flex align-items-center justify-content-center">
