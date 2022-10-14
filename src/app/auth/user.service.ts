@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthResponse } from './auth-response.model';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +15,8 @@ export class UserService {
   );
   token$ = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
+    this.token$.next(localStorage.getItem('token'));
     this.restoreToken();
   }
 
@@ -57,15 +59,33 @@ export class UserService {
     }
   }
   private async restoreToken() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.token$.next(token);
+    if (this.token$.value) {
       const user = await lastValueFrom(
         this.http.get<User>(environment.apiUrl + '/user/me', {
-          headers: { Authorization: 'Bearer ' + token },
+          headers: { Authorization: 'Bearer ' + this.token$.value },
         })
       );
       this.currentUser$.next(user);
+    }
+  }
+  async logout() {
+    const url = environment.apiUrl + '/user/logout';
+    try {
+      const currentToken = this.token$.value;
+      await lastValueFrom(
+        this.http.post(
+          url,
+          {},
+          {
+            headers: { Authorization: 'Bearer ' + currentToken },
+          }
+        )
+      );
+    } finally {
+      this.currentUser$.next(null);
+      this.token$.next(null);
+      localStorage.removeItem('token');
+      this.router.navigateByUrl('/auth');
     }
   }
 }

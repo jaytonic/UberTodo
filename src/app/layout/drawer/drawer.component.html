@@ -1,1 +1,28 @@
-<p>drawer works!</p>
+<div>
+    <h1 class="m-3">VS Todo</h1>
+    <ul class="m-3" class="list-none p-0">
+      <li *ngFor="let menuItem of menuService.items">
+        <button
+          pButton
+          [routerLink]="menuItem.route"
+          (click)="uiService.toggleMenu()"
+          fillMode="flat"
+          class="no-underline m-1 w-full p-button-text"
+          [icon]="'pi pi-' + menuItem.icon"
+          [label]="menuItem.text"
+        >
+        </button>
+      </li>
+      <li>
+        <button
+          pButton
+          (click)="userService.logout(); uiService.toggleMenu()"
+          fillMode="flat"
+          class="no-underline m-1 w-full p-button-text"
+          icon="pi pi-lock"
+          label="Logout"
+        ></button>
+      </li>
+    </ul>
+  </div>
+  

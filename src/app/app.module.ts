@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/auth/user.service';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
@@ -25,9 +26,10 @@ import { ComponentsModule } from './components/components.module';
     AppRoutingModule,
     UserModule,
     CoreModule,
+    SharedModule,
     ComponentsModule,
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

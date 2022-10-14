@@ -7,11 +7,9 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
-  
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
@@ -35,7 +33,6 @@ export class LoginComponent implements OnInit {
           this.form.value.email!,
           this.form.value.password!
         );
-
         await this.router.navigateByUrl('/');
       } catch (e: any) {
         this.serverError = e.message;
@@ -44,5 +41,4 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-
 }

@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+<div class="h-full">
+  <p-sidebar [(visible)]="uiService.menuDisplayed">
+    <app-drawer></app-drawer>
+  </p-sidebar>
+  <div class="h-full">
+    <div class="flex flex-column w-screen h-full">
+      <app-header class="flex-grow-0"></app-header>
+      <div class="flex-grow-1">
+        <router-outlet></router-outlet>
+      </div>
+      <app-footer class="flex-grow-0"></app-footer>
+    </div>
+  </div>
+</div>

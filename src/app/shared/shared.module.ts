@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
+import { ToolbarModule } from 'primeng/toolbar';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [],
@@ -25,5 +27,7 @@ export class SharedModule {
     HttpClientModule,
     ProgressSpinnerModule,
     DialogModule,
+    ToolbarModule,
+    SidebarModule,
   ];
 }

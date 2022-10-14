@@ -1,18 +1,4 @@
 <div class="h-screen">
-  <!-- <p-dialog
-    [visible]="uiService.isBusy$ | async"
-    [closable]="false"
-    [draggable]="false"
-    [resizable]="false"
-    [modal]="true"
-    [blockScroll]="true"
-    [closeOnEscape]="true"
-  >
-    <p-progressSpinner></p-progressSpinner>
-    <div>
-      {{ uiService.busyMessage$ | async }}
-    </div></p-dialog
-  > -->
 
   <app-busy-dialog
     [isBusy]="(uiService.isBusy$ | async) ?? false"
