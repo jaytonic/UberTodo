@@ -21,6 +21,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PaginatorModule } from 'primeng/paginator';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [],
@@ -51,5 +52,6 @@ export class SharedModule {
     DividerModule,
     ConfirmDialogModule,
     PaginatorModule,
+    SkeletonModule,
   ];
 }

@@ -10,7 +10,7 @@ import { UserService } from '../auth/user.service';
   providedIn: 'root',
 })
 export class TodosService {
-  todos$ = new BehaviorSubject<Todo[]>([]);
+  todos$ = new BehaviorSubject<Todo[] | null>(null);
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.initialize();
@@ -39,7 +39,7 @@ export class TodosService {
     );
 
     if (response.success) {
-      this.todos$.next([...this.todos$.value, response.data]);
+      this.todos$.next([...this.todos$.value!, response.data]);
     }
   }
 
@@ -57,13 +57,13 @@ export class TodosService {
     );
     if (response.success) {
       this.todos$.next(
-        this.todos$.value.map((t) => (t._id === todo._id ? response.data : t))
+        this.todos$.value!.map((t) => (t._id === todo._id ? response.data : t))
       );
     }
   }
 
   async clearCompletedTodos() {
-    const completedTodos = this.todos$.value.filter((t) => t.completed);
+    const completedTodos = this.todos$.value!.filter((t) => t.completed);
     for (let todo of completedTodos) {
       const response = await lastValueFrom(
         this.http.delete<AddTodoAnswer>(
@@ -77,7 +77,7 @@ export class TodosService {
       );
     }
     this.todos$.next(
-      this.todos$.value.filter(
+      this.todos$.value!.filter(
         (t) => !completedTodos.some((ct) => ct._id == t._id)
       )
     );
