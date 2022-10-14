@@ -1,4 +1,4 @@
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { UiService } from './../../core/ui.service';
 import { UserService } from 'src/app/auth/user.service';
 import { environment } from './../../../environments/environment';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   remoteUrl = environment.apiUrl + '/user/me/avatar';
@@ -20,7 +20,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     public userService: UserService,
     private uiService: UiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +53,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       summary: 'Avatar updated successfully',
       closable: false,
       life: 800,
+    });
+  }
+  async deleteAccount() {
+    this.confirmationService.confirm({
+      message:
+        'Are you sure you want to delete your account? This is definitive! 💀',
+      accept: () => this.userService.deleteAccount(),
     });
   }
 }

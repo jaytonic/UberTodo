@@ -25,5 +25,7 @@ export class HeaderComponent implements OnInit {
         command: () => this.userService.logout(),
       },
     ];
+
+    this.userService.currentUserAvatar$.subscribe((a) => console.log(a));
   }
 }

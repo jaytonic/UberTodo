@@ -1,28 +1,52 @@
+<p-confirmDialog
+  header="Danger!!!"
+  icon="pi pi-eject text-red-500"
+  acceptLabel="Good bye motherf*cker"
+  rejectLabel="No I want to stay"
+  acceptButtonStyleClass="p-button-danger"
+  rejectButtonStyleClass="p-button-outlined p-button-secondary"
+></p-confirmDialog>
 <div class="flex justify-content-center">
   <div class="flex flex-column w-full md:w-10 xl:w-6">
     <p-toast position="top-right"></p-toast>
     <p-card class="m-3">
-      <h2>Your avatar</h2>
-      <div class="flex flex-column align-items-center">
-        <p-avatar
-          class="m-2"
-          shape="circle"
-          [image]="(userService.currentUserAvatar$ | async) ?? ''"
-          size="xlarge"
-        ></p-avatar>
-        <p-fileUpload
-          mode="basic"
-          [url]="remoteUrl"
-          method="post"
-          accept="image/*"
-          [auto]="true"
-          [headers]="headers"
-          name="avatar"
-          (onProgress)="onProgress()"
-          (onError)="onError()"
-          (onUpload)="onUpload()"
-          chooseLabel="Change your avatar"
-        ></p-fileUpload>
+      <div class="flex">
+        <div class="flex flex-column flex-grow-1">
+          <h2>Your avatar</h2>
+          <div class="flex flex-column align-items-center">
+            <p-avatar
+              class="m-2"
+              shape="circle"
+              [image]="(userService.currentUserAvatar$ | async) ?? ''"
+              size="xlarge"
+            ></p-avatar>
+            <p-fileUpload
+              mode="basic"
+              [url]="remoteUrl"
+              method="post"
+              accept="image/*"
+              [auto]="true"
+              [headers]="headers"
+              name="avatar"
+              (onProgress)="onProgress()"
+              (onError)="onError()"
+              (onUpload)="onUpload()"
+              chooseLabel="Change your avatar"
+            ></p-fileUpload>
+          </div>
+        </div>
+        <p-divider layout="vertical" class="flex-grow-0"></p-divider>
+        <div class="flex flex-column flex-grow-1">
+          <h2 class="text-red-500">Danger zone</h2>
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Delete your account"
+            class="p-button-danger m-3"
+            (click)="deleteAccount()"
+          ></button>
+        </div>
       </div>
     </p-card>
   </div>

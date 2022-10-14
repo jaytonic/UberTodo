@@ -18,6 +18,8 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
 import { FileUploadModule } from 'primeng/fileupload';
+import { DividerModule } from 'primeng/divider';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [],
@@ -45,5 +47,7 @@ export class SharedModule {
     AvatarModule,
     MenuModule,
     FileUploadModule,
+    DividerModule,
+    ConfirmDialogModule,
   ];
 }

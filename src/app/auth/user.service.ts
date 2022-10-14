@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { User } from './user.model';
+import * as crypto from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',
@@ -61,13 +62,8 @@ export class UserService {
           headers: { Authorization: 'Bearer ' + this.token$.value },
         })
       );
-      this.currentUserAvatar$.next(
-        'https://api-nodejs-todolist.herokuapp.com/user/' +
-          user._id +
-          '/avatar?date=' +
-          new Date().getTime()
-      );
       this.currentUser$.next(user);
+      await this.refreshAvatar();
     }
   }
   async logout() {
@@ -92,23 +88,42 @@ export class UserService {
   }
 
   async refreshAvatar() {
-    this.currentUserAvatar$.next(
-      'https://api-nodejs-todolist.herokuapp.com/user/' +
-        this.currentUser$.value!._id +
-        '/avatar?date=' +
-        new Date().getTime()
-    );
+    let newUrl =
+      environment.apiUrl +
+      '/user/' +
+      this.currentUser$.value!._id +
+      '/avatar?date=' +
+      new Date().getTime();
+    try {
+      await lastValueFrom(this.http.get(newUrl, { responseType: 'text' }));
+      this.currentUserAvatar$.next(newUrl);
+    } catch (error: any) {
+      const hash = crypto.MD5(
+        this.currentUser$.value!.email.trim().toLowerCase()
+      );
+      newUrl = 'https://www.gravatar.com/avatar/' + hash;
+      this.currentUserAvatar$.next(newUrl);
+    }
   }
 
   async updateCurrentUser(user: User, token: string) {
     this.currentUser$.next(user);
     this.token$.next(token);
-    this.currentUserAvatar$.next(
-      'https://api-nodejs-todolist.herokuapp.com/user/' +
-        user._id +
-        '/avatar?date=' +
-        new Date().getTime()
-    );
+    await this.refreshAvatar();
     localStorage.setItem('token', token);
+  }
+
+  async deleteAccount() {
+    if (this.token$.value) {
+      const user = await lastValueFrom(
+        this.http.delete(environment.apiUrl + '/user/me', {
+          headers: { Authorization: 'Bearer ' + this.token$.value },
+        })
+      );
+      this.currentUser$.next(null);
+      this.token$.next(null);
+      localStorage.removeItem('token');
+      this.router.navigateByUrl('/auth');
+    }
   }
 }
