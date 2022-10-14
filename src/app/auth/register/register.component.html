@@ -1,0 +1,68 @@
+<div class="flex align-items-center justify-content-center h-full">
+  <p-card class="w-12 md:w-6 lg:w-4 m-2" header="Register">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="flex flex-column">
+        <div class="p-float-label">
+          <input
+            type="text"
+            autocomplete="name"
+            formControlName="name"
+            class="w-full"
+            pInputText
+          />
+          <label>Name</label>
+        </div>
+        <div class="p-float-label w-full mt-4">
+          <input
+            type="text"
+            class="w-full"
+            autocomplete="email"
+            formControlName="email"
+            pInputText
+          />
+          <label>Email</label>
+        </div>
+        <div class="p-float-label w-full mt-4">
+          <input
+            type="password"
+            class="w-full"
+            pPassword
+            [feedback]="false"
+            formControlName="password"
+            autocomplete="new-password"
+          />
+          <label>Password</label>
+        </div>
+        <div class="p-float-label w-full mt-4">
+          <input
+            type="password"
+            class="w-full"
+            pPassword
+            [feedback]="false"
+            formControlName="confirmPassword"
+            autocomplete="new-password"
+          />
+          <label>Repeat password</label>
+        </div>
+        <div *ngIf="serverError" class="w-auto text-red-500 mt-2">
+          {{ serverError }}
+        </div>
+        <div class="w-auto my-5 justify-content-center flex">
+          <button
+            pButton
+            class="m-1 w-5 p-button-text"
+            routerLink="/auth/login"
+            type="button"
+            label="Login instead"
+          ></button>
+          <button
+            pButton
+            class="m-1 w-5 text-center"
+            type="submit"
+            label="Register"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </p-card>
+</div>
